@@ -20,3 +20,10 @@ flask app  with the mongoDB  connection and Kubernetes deployment
    GET  /        -> welcome message
    POST /data    -> insert JSON into Mongo
    GET  /data    -> retrieve all documents
+
+5. Build & push Docker image
+If you want to rebuild locally:
+```bash
+docker build -t <your-dockerhub-username>/flask-mongo-app:v1 .
+docker login
+docker push <your-dockerhub-username>/flask-mongo-app:v1
