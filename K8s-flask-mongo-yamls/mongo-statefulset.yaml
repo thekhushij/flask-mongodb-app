@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongo
+  namespace: flask-mongo
+spec:
+  serviceName: mongo-headless
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+        - name: mongo
+          image: mongo:6.0
+          ports:
+            - containerPort: 27017
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-creds
+                  key: MONGO_USER
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-creds
+                  key: MONGO_PASS
+          volumeMounts:
+            - name: mongo-data
+              mountPath: /data/db
+  volumeClaimTemplates:
+    - metadata:
+        name: mongo-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi

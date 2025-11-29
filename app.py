@@ -5,8 +5,23 @@ import os
 
 app = Flask(__name__)
 
-# Use MONGODB_URI environment variable (example: mongodb://user:pass@mongo:27017/)
-MONGODB_URI = os.environ.get("MONGODB_URI", "mongodb://localhost:27017/")
+# # Use MONGODB_URI environment variable (example: mongodb://user:pass@mongo:27017/)
+# MONGODB_URI = os.environ.get("MONGODB_URI", "mongodb://localhost:27017/")
+# client = MongoClient(MONGODB_URI)
+# db = client.flask_db
+# collection = db.data
+
+mongo_user = os.environ.get("MONGO_USER")
+mongo_pass = os.environ.get("MONGO_PASS")
+mongo_host = os.environ.get("MONGO_HOST", "mongo:27017")  # service name in k8s
+
+if mongo_user and mongo_pass:
+    MONGODB_URI = f"mongodb://{mongo_user}:{mongo_pass}@{mongo_host}/?authSource=admin"
+else:
+    # fallback to .env or local dev
+    MONGODB_URI = os.environ.get("MONGODB_URI", "mongodb://localhost:27017/")
+    
+# create mongo client and collection   
 client = MongoClient(MONGODB_URI)
 db = client.flask_db
 collection = db.data
