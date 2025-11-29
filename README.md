@@ -12,7 +12,6 @@ This README explains:
 - verification and troubleshooting commands,
 - design choices and testing summary.
 
-> **Note:** Do **not** store secrets (DB username/password) directly in source files or GitHub. Use Kubernetes Secrets (instructions below). The example uses `mongo-creds` secret that you create locally (or via CI/CD) before applying manifests.
 
 ---
 
@@ -275,14 +274,5 @@ curl -X POST -H "Content-Type: application/json" -d '{"sampleKey":"sampleValue"}
 
 ---
 
-## 15) Final notes & next steps
-- I generated the Kubernetes manifests and you applied them — great job. You have HPA configured; ensure `metrics-server` is available in minikube for HPA to compute CPU-based scaling metrics.
-- For the MongoDB admin user creation: either (A) use an init job to create the admin user, or (B) start MongoDB with `--auth` and create the user via a Kubernetes Job that runs once.
-- After you confirm screenshots for autoscaling and persistence, I will compile a final single README file (this one) and a short submission summary you can email.
 
----
-
-If you want I will:
-- generate this README as a downloadable file (I will save it to `/mnt/data/FLASK_MONGO_README.md`) — **I'll create that now** and give you the download link.
-- optionally produce a shorter `submission_summary.txt` for the email body.
 
