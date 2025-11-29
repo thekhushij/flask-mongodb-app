@@ -139,15 +139,7 @@ kubectl run loadgen --image=radial/busyboxplus:curl --restart=Never --     /bin/
 
 ---
 
-## 10. Testing API
-
-```bash
-curl -X POST -H "Content-Type: application/json"   -d '{"name":"Alice","age":30}'   http://<flask-url>/data
-```
-
----
-
-## 11. Included for Submission
+## 10. Included for Submission
 
 - Dockerfile
 - Kubernetes YAMLs
@@ -157,7 +149,7 @@ curl -X POST -H "Content-Type: application/json"   -d '{"name":"Alice","age":30}
 
 ---
 
-## 12. Troubleshooting
+## 11. Troubleshooting
 
 - Ensure metrics‑server is running.
 - Increase Minikube resources if pods crash.
